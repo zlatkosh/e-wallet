@@ -1,0 +1,6 @@
+rootProject.name = 'e-wallet'
+
+include 'domain'
+include 'server'
+include 'service'
+

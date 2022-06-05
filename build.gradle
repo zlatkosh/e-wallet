@@ -1,0 +1,48 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.0'
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+}
+
+subprojects {
+    apply plugin: 'java-library'
+
+    group = 'com.zlatkosh'
+    version = '1.0'
+    sourceCompatibility = '17'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    ext {
+        testcontainersVersion = "1.17.2"
+        springBootVersion = "2.7.0"
+        springSecurityVersion = "5.7.1"
+        lombokVersion = "1.18.24"
+        postgresVersion = "42.3.5"
+        fliwayVersion = "8.5.12"
+    }
+
+    dependencies {
+        implementation "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
+        implementation "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
+        implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+        compileOnly "org.projectlombok:lombok:$lombokVersion"
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion"
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+        testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+        testImplementation "org.springframework.security:spring-security-test:$springSecurityVersion"
+        testImplementation "org.testcontainers:junit-jupiter:$testcontainersVersion"
+//        testImplementation "org.testcontainers:postgresql:$testcontainersVersion"
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+}

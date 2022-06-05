@@ -1,0 +1,9 @@
+plugins {
+    id "org.springframework.boot" version "$springBootVersion"
+}
+
+archivesBaseName = "e-wallet-server"
+dependencies {
+    implementation project(':domain')
+    developmentOnly "org.springframework.boot:spring-boot-devtools:$springBootVersion"
+}
