@@ -5,5 +5,6 @@ plugins {
 archivesBaseName = "e-wallet-server"
 dependencies {
     implementation project(':domain')
+    implementation project(':service')
     developmentOnly "org.springframework.boot:spring-boot-devtools:$springBootVersion"
 }
