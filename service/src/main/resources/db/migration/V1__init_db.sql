@@ -64,4 +64,5 @@ CREATE TABLE transaction
 
 
 --INSERT DATA
-INSERT INTO user_data (username, password, email) VALUES ('zlatko'::text, 'password'::text, 'zlatko.sh@gmail.com'::text)
+INSERT INTO user_data (username, password, email) VALUES ('zlatko'::text, '{noop}password'::text, 'zlatko.sh@gmail.com'::text);
+INSERT INTO role (username, role_name, description) VALUES ('zlatko', 'ADMIN', 'Admin role having all permissions.');
