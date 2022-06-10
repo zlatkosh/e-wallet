@@ -1,6 +1,7 @@
 dependencies {
-    implementation project(':domain')
+    implementation project(':model')
 
+    implementation ("javax.validation:validation-api:${javaxValidationVersion}")
     implementation "org.flywaydb:flyway-core:$fliwayVersion"
     implementation "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion"
     runtimeOnly "org.postgresql:postgresql:$postgresVersion"

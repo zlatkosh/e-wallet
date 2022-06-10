@@ -27,6 +27,7 @@ subprojects {
         lombokVersion = "1.18.24"
         postgresVersion = "42.3.5"
         fliwayVersion = "8.5.12"
+        javaxValidationVersion = "2.0.1.Final"
     }
 
     dependencies {

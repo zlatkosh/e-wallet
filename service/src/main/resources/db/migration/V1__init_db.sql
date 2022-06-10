@@ -1,7 +1,9 @@
-CREATE TABLE user_data (
-    username TEXT NOT NULL PRIMARY KEY,
-    password TEXT NOT NULL,
-    email    TEXT NOT NULL
+-- CREATE TABLES
+CREATE TABLE user_data
+(
+    username TEXT        NOT NULL PRIMARY KEY,
+    password TEXT        NOT NULL,
+    email    TEXT UNIQUE NOT NULL
 );
 
 CREATE TABLE role
@@ -9,6 +11,7 @@ CREATE TABLE role
     username    TEXT NOT NULL,
     role_name   TEXT NOT NULL,
     description TEXT,
+    PRIMARY KEY (username, role_name),
     CONSTRAINT fk_role_to_user
         FOREIGN KEY (username)
             REFERENCES user_data (username)
@@ -18,7 +21,7 @@ CREATE UNIQUE INDEX idx_role_username ON role (username, role_name);
 
 CREATE TABLE wallet
 (
-    username        TEXT  NOT NULL,
+    username        TEXT  NOT NULL PRIMARY KEY,
     current_balance MONEY NOT NULL,
     CONSTRAINT fk_wallet_to_user
         FOREIGN KEY (username)
@@ -58,3 +61,7 @@ CREATE TABLE transaction
             REFERENCES play_session (session_id)
 
 );
+
+
+--INSERT DATA
+INSERT INTO user_data (username, password, email) VALUES ('zlatko'::text, 'password'::text, 'zlatko.sh@gmail.com'::text)

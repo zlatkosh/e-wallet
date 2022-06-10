@@ -1,4 +1,4 @@
-package com.zlatkosh.ewallet.domain;
+package com.zlatkosh.ewallet.model.db;
 
 public record TransactionType(
         String txType,
