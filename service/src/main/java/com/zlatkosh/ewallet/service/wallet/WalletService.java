@@ -16,7 +16,7 @@ class WalletService {
             walletRepository.insertWallet(username);
         } catch (DuplicateKeyException e) {
             String message = "Failed to create a wallet for user '%s'. The user already has an existing wallet!";
-            log.error(message, e);
+            log.error(message);
             throw new EWalletException( message.formatted(username));
         } catch (Exception e) {
             String message = "Failed to create a wallet for user '%s'.".formatted(username);

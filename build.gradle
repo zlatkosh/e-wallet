@@ -28,6 +28,7 @@ subprojects {
         postgresVersion = "42.3.5"
         fliwayVersion = "8.5.12"
         javaxValidationVersion = "2.0.1.Final"
+        springdocOpenapiUiVersion = "1.6.9"
     }
 
     dependencies {

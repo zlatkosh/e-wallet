@@ -4,5 +4,6 @@ dependencies {
     implementation ("javax.validation:validation-api:${javaxValidationVersion}")
     implementation "org.flywaydb:flyway-core:$fliwayVersion"
     implementation "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion"
+    implementation "org.springdoc:springdoc-openapi-ui:$springdocOpenapiUiVersion"
     runtimeOnly "org.postgresql:postgresql:$postgresVersion"
 }
