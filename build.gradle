@@ -29,6 +29,7 @@ subprojects {
         fliwayVersion = "8.5.12"
         javaxValidationVersion = "2.0.1.Final"
         springdocOpenapiUiVersion = "1.6.9"
+        javaJwtVersion = "3.19.2"
     }
 
     dependencies {
