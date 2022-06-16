@@ -43,12 +43,7 @@ public class EWalletAuthorizationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                     filterChain.doFilter(request, response);
                 } catch (Exception e) {
-                    log.error("Login error", e);
-                    Map<String, String> tokens = new HashMap<>();
-                    tokens.put("errorMessage", e.getMessage());
-                    response.setStatus(FORBIDDEN.value());
-                    response.setContentType(APPLICATION_JSON_VALUE);
-                    new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+                    AccessController.handleForbiddenException(response, e, log);
                     filterChain.doFilter(request, response);
                 }
             } else {

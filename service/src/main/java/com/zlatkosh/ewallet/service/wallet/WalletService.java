@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 class WalletService {
     private final WalletRepository walletRepository;
 
-    void addNewWallet(String username) {
+    void createNewWallet(String username) {
         try {
             walletRepository.insertWallet(username);
         } catch (DuplicateKeyException e) {

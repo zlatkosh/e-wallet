@@ -15,7 +15,7 @@ public class EWalletServerApplication  implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         log.info("Started the e-wallet application...");
     }
 }

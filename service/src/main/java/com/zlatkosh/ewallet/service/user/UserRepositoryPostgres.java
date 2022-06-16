@@ -14,24 +14,12 @@ import java.util.List;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 class UserRepositoryPostgres implements UserRepository {
     private static final String USER_EXISTS_SQL = """
-            SELECT EXISTS(SELECT * FROM user_data WHERE username = ?)
-            """;
-    private static final String GET_ROLES_SQL = """
-            SELECT role_name FROM role WHERE username = ?
+            SELECT EXISTS(SELECT * FROM e_wallet_pg.public.user_data WHERE username = ?)
             """;
     final JdbcTemplate jdbcTemplate;
 
     @Override
     public Boolean userExists(String username) {
-        return jdbcTemplate.queryForObject(USER_EXISTS_SQL, getFirstBooleanRowMapper(), username);
-    }
-
-    @Override
-    public List<String> getUserRoles(String username) {
-        return jdbcTemplate.queryForList(GET_ROLES_SQL, String.class, username);
-    }
-
-    private RowMapper<Boolean> getFirstBooleanRowMapper() {
-        return (rs, rowNum) -> rs.getBoolean(1);
+        return jdbcTemplate.queryForObject(USER_EXISTS_SQL, Boolean.class, username);
     }
 }

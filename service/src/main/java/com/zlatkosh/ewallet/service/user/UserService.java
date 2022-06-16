@@ -16,8 +16,4 @@ public class UserService {
     public boolean userExists(String username) {
         return userRepository.userExists(username);
     }
-
-    public List<String> getUserRoles(String username) {
-        return userRepository.getUserRoles(username);
-    }
 }
