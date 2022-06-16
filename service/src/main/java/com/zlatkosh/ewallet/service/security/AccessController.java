@@ -1,11 +1,12 @@
 package com.zlatkosh.ewallet.service.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zlatkosh.ewallet.model.security.JwtMetadata;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,8 +29,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 public class AccessController {
 
-    @Autowired
-    private ApplicationContext context;
+    private final ApplicationContext context;
 
     @GetMapping("/refresh_token")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -38,10 +38,11 @@ public class AccessController {
             try {
                 String refreshToken = authorizationHeader.substring(BEARER_PREFIX.length());
                 JwtUtility jwtUtility = context.getBean(JwtUtility.class);
-                User user = jwtUtility.extractUserFromRefreshTokenString(refreshToken);
-                if (user != null) {
+                JwtMetadata jwtMetadata = jwtUtility.extractMetadataFromTokenString(refreshToken);
 
-                    String accessToken = jwtUtility.generateAccessToken(user);
+                if (jwtMetadata != null) {
+
+                    String accessToken = jwtUtility.generateAccessToken(jwtMetadata);
                     Map<String, String> tokens = new HashMap<>();
                     tokens.put("accessToken", accessToken);
                     tokens.put("refreshToken", refreshToken);
@@ -50,17 +51,21 @@ public class AccessController {
                 }
 
             } catch (Exception e) {
-                log.error("Login error", e);
-                Map<String, String> tokens = new HashMap<>();
-                tokens.put("errorMessage", e.getMessage());
-                response.setStatus(FORBIDDEN.value());
-                response.setContentType(APPLICATION_JSON_VALUE);
-                new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+                handleForbiddenException(response, e, log);
             }
         } else {
             log.error("Refresh token missing");
             throw new ResponseStatusException(
                     FORBIDDEN, "Refresh token missing!");
         }
+    }
+
+    static void handleForbiddenException(HttpServletResponse response, Exception e, Logger log) throws IOException {
+        log.error("Login error", e);
+        Map<String, String> tokens = new HashMap<>();
+        tokens.put("errorMessage", e.getMessage());
+        response.setStatus(FORBIDDEN.value());
+        response.setContentType(APPLICATION_JSON_VALUE);
+        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 }

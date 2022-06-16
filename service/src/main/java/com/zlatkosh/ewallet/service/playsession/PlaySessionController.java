@@ -1,7 +1,6 @@
-package com.zlatkosh.ewallet.service.wallet;
+package com.zlatkosh.ewallet.service.playsession;
 
 import com.zlatkosh.ewallet.service.security.JwtUtility;
-import com.zlatkosh.ewallet.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -22,37 +21,33 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/wallet")
+@RequestMapping("/session")
 @Slf4j
-public class WalletController {
-    private final WalletService walletService;
-    private final UserService userService;
+public class PlaySessionController {
+    private final PlaySessionService playSessionService;
     private final ApplicationContext context;
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Wallet successfully created",
+            @ApiResponse(responseCode = "200", description = "Play session successfully created",
                     content = @Content),
             @ApiResponse(responseCode = "400", description = "Bad request",
-                    content = @Content),
-            @ApiResponse(responseCode = "406", description = "Not acceptable.",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content),
     })
-    @Operation(description = "This method is used to create a wallet for an existing User. " +
-            "The limitation is that only a single wallet can exist for any given user.")
+    @Operation(description = "This method is used to create a play session for an existing User. " +
+            "One user can have multiple play sessions. " +
+            "A play session is automatically created upon a successful login and has the same expiration as the generated refresh token." +
+            "Meaning a new play session is created with the next login after the refresh token has expired.")
     @PutMapping("/create")
-    public void createWallet(HttpServletRequest request) {
+    public void createPlaySession(HttpServletRequest request) {
         String accessToken = request.getHeader(AUTHORIZATION).substring(BEARER_PREFIX.length());
         JwtUtility jwtUtility = context.getBean(JwtUtility.class);
         String username = jwtUtility.getDecodedJWT(accessToken).getSubject();
-        log.info("Creating a wallet for user: '%s'".formatted(username));
-        if (!userService.userExists(username)) {
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "User '%s' does not exist! Failed for create a wallet for it.".formatted(username));
-        }
+        log.info("Creating a play session for user: '%s'".formatted(username));
         try {
-            walletService.createNewWallet(username);
-            log.info("Successfully created a wallet for user '%s'".formatted(username));
+            Long playSessionId = playSessionService.createNewPlaySession(username, jwtUtility.extractMetadataFromTokenString(accessToken).playSessionEndDate());
+            log.info("Successfully created a play session with id '%d' for user '%s'".formatted(playSessionId, username));
         } catch (Exception e) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Bad request: %s".formatted(e.getMessage()));
