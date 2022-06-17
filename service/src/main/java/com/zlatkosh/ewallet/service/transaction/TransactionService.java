@@ -5,6 +5,7 @@ import com.zlatkosh.ewallet.model.exception.EWalletException;
 import com.zlatkosh.ewallet.service.wallet.WalletRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
