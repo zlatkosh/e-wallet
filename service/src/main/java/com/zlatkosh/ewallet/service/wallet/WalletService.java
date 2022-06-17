@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-class WalletService {
+public class WalletService {
     private final WalletRepository walletRepository;
 
     void createNewWallet(String username) {
@@ -21,7 +21,7 @@ class WalletService {
         } catch (Exception e) {
             String message = "Failed to create a wallet for user '%s'.".formatted(username);
             log.error(message, e);
-            throw new EWalletException(message, e);
+            throw new EWalletException(message);
         }
     }
 }

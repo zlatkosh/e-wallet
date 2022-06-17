@@ -2,10 +2,10 @@ package com.zlatkosh.ewallet.service.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zlatkosh.ewallet.model.security.JwtMetadata;
+import com.zlatkosh.ewallet.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,8 +41,10 @@ public class AccessController {
                 JwtMetadata jwtMetadata = jwtUtility.extractMetadataFromTokenString(refreshToken);
 
                 if (jwtMetadata != null) {
-
+                    UserService userService = context.getBean(UserService.class);
+                    jwtMetadata.setRoles(userService.getUserRoles(jwtMetadata.getUsername()));
                     String accessToken = jwtUtility.generateAccessToken(jwtMetadata);
+
                     Map<String, String> tokens = new HashMap<>();
                     tokens.put("accessToken", accessToken);
                     tokens.put("refreshToken", refreshToken);

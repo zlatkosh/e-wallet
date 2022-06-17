@@ -39,23 +39,15 @@ CREATE TABLE play_session
             REFERENCES user_data (username)
 );
 
-CREATE TABLE transaction_type
-(
-    tx_type     TEXT PRIMARY KEY,
-    description TEXT NOT NULL
-);
-
 CREATE TABLE transaction
 (
     tx_id       BIGSERIAL PRIMARY KEY,
     tx_type     TEXT   NOT NULL,
     session_id  BIGINT NOT NULL,
     tx_time     TIMESTAMP,
+    tx_amount   MONEY  NOT NULL,
     old_balance MONEY  NOT NULL,
     new_balance MONEY  NOT NULL,
-    CONSTRAINT fk_tx_to_tx_type
-        FOREIGN KEY (tx_type)
-            REFERENCES transaction_type (tx_type),
     CONSTRAINT fk_tx_to_session
         FOREIGN KEY (session_id)
             REFERENCES play_session (session_id)
