@@ -7,6 +7,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.zlatkosh.ewallet.model.security.JwtMetadata;
 import com.zlatkosh.ewallet.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.ApplicationContext;
@@ -16,8 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -65,24 +65,24 @@ public class JwtUtility {
     }
     public String generateAccessToken(JwtMetadata jwtMetadata) {
         return JWT.create()
-                .withSubject(jwtMetadata.getUsername())
+                .withSubject(jwtMetadata.username())
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis()+ accessTokenExpiry))
                 .withIssuer(ISSUER)
-                .withClaim(CLAIM_PLAY_SESSION_ID, jwtMetadata.getPlaySessionId())
-                .withClaim(CLAIM_PLAY_SESSION_END_DATE, jwtMetadata.getPlaySessionEndDate())
-                .withClaim(CLAIM_ROLES, jwtMetadata.getRoles())
+                .withClaim(CLAIM_PLAY_SESSION_ID, jwtMetadata.playSessionId())
+                .withClaim(CLAIM_PLAY_SESSION_END_DATE, jwtMetadata.playSessionEndDate())
+                .withClaim(CLAIM_ROLES, jwtMetadata.roles())
                 .sign(ALGORITHM);
     }
 
     public String generateRefreshToken(JwtMetadata jwtMetadata) {
         return JWT.create()
-                .withSubject(jwtMetadata.getUsername())
+                .withSubject(jwtMetadata.username())
                 .withIssuedAt(new Date())
-                .withExpiresAt(jwtMetadata.getPlaySessionEndDate())
+                .withExpiresAt(jwtMetadata.playSessionEndDate())
                 .withIssuer(ISSUER)
-                .withClaim(CLAIM_PLAY_SESSION_ID, jwtMetadata.getPlaySessionId())
-                .withClaim(CLAIM_PLAY_SESSION_END_DATE, jwtMetadata.getPlaySessionEndDate())
+                .withClaim(CLAIM_PLAY_SESSION_ID, jwtMetadata.playSessionId())
+                .withClaim(CLAIM_PLAY_SESSION_END_DATE, jwtMetadata.playSessionEndDate())
                 .sign(ALGORITHM);
     }
 }

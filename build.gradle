@@ -30,8 +30,6 @@ subprojects {
         javaxValidationVersion = "2.0.1.Final"
         springdocOpenapiUiVersion = "1.6.9"
         javaJwtVersion = "3.19.2"
-        springRetryVersion = "1.3.3"
-        springVersion = "5.3.20"
     }
 
     dependencies {

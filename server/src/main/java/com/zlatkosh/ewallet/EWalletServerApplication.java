@@ -13,6 +13,7 @@ public class EWalletServerApplication  implements CommandLineRunner {
         SpringApplication.run(EWalletServerApplication.class, args);
     }
 
+
     @Override
     public void run(String... args) {
         log.info("Started the e-wallet application...");

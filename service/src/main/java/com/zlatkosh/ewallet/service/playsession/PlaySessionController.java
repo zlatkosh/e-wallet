@@ -46,7 +46,7 @@ public class PlaySessionController {
         String username = jwtUtility.getDecodedJWT(accessToken).getSubject();
         log.info("Creating a play session for user: '%s'".formatted(username));
         try {
-            Long playSessionId = playSessionService.createNewPlaySession(username, jwtUtility.extractMetadataFromTokenString(accessToken).getPlaySessionEndDate());
+            Long playSessionId = playSessionService.createNewPlaySession(username, jwtUtility.extractMetadataFromTokenString(accessToken).playSessionEndDate());
             log.info("Successfully created a play session with id '%d' for user '%s'".formatted(playSessionId, username));
         } catch (Exception e) {
             throw new ResponseStatusException(
