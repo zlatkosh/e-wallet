@@ -20,7 +20,7 @@ public class PlaySessionService {
         } catch (Exception e) {
             String message = "Failed to create a session for user '%s', endDate '%s'.".formatted(username, endTime);
             log.error(message, e);
-            throw new EWalletException(message, e);
+            throw new EWalletException(message);
         }
     }
 

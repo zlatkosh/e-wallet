@@ -1,5 +1,8 @@
 package com.zlatkosh.ewallet.service.wallet;
 
-interface WalletRepository {
+import com.zlatkosh.ewallet.model.db.Transaction;
+
+public interface WalletRepository {
     void insertWallet(String username);
+    Transaction doTransaction(String username, Transaction transaction);
 }
