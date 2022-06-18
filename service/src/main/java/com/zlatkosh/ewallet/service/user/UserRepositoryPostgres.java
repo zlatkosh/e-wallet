@@ -18,7 +18,7 @@ class UserRepositoryPostgres implements UserRepository {
     private static final String GET_ROLES_SQL = """
     SELECT role_name FROM e_wallet_pg.public.role WHERE username = ?
             """;
-    final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public Boolean userExists(String username) {

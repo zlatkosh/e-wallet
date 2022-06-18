@@ -1,8 +1,8 @@
 package com.zlatkosh.ewallet.service.transaction;
 
-import com.zlatkosh.ewallet.model.controller.BalanceDecrease;
-import com.zlatkosh.ewallet.model.controller.BalanceIncrease;
-import com.zlatkosh.ewallet.model.db.Transaction;
+import com.zlatkosh.ewallet.model.controller.BalanceDecreaseDto;
+import com.zlatkosh.ewallet.model.controller.BalanceIncreaseDto;
+import com.zlatkosh.ewallet.model.controller.TransactionDto;
 import com.zlatkosh.ewallet.model.exception.EWalletException;
 import com.zlatkosh.ewallet.model.security.JwtMetadata;
 import com.zlatkosh.ewallet.service.security.JwtUtility;
@@ -44,19 +44,19 @@ public class TransactionController {
     @Operation(description = "This controller is used to create a transaction that will deposit funds to the player's wallet. ")
     @PutMapping("/increase")
     @ResponseBody
-    public void createIncreaseBalanceTx(HttpServletRequest request, @RequestBody @Validated BalanceIncrease balanceIncrease) {
+    public void createIncreaseBalanceTx(HttpServletRequest request, @RequestBody @Validated BalanceIncreaseDto balanceIncreaseDto) {
         String accessToken = request.getHeader(AUTHORIZATION).substring(BEARER_PREFIX.length());
         JwtUtility jwtUtility = context.getBean(JwtUtility.class);
         JwtMetadata jwtMetadata = jwtUtility.extractMetadataFromTokenString(accessToken);
-        log.info("Creating a transaction for '%s'".formatted(balanceIncrease));
+        log.info("Creating a transaction for '%s'".formatted(balanceIncreaseDto));
         try {
-            Transaction transaction = Transaction.builder()
+            TransactionDto transactionDto = TransactionDto.builder()
                     .sessionId(jwtMetadata.getPlaySessionId())
-                    .txAmount(balanceIncrease.getTransactionAmount())
-                    .txType(balanceIncrease.getTxType())
+                    .txAmount(balanceIncreaseDto.getTransactionAmount())
+                    .txType(balanceIncreaseDto.getTxType())
                     .build();
-            transactionService.createMonetaryTx(jwtMetadata.getUsername(), transaction);
-            log.info("Successfully created a transaction for '%s'".formatted(balanceIncrease));
+            transactionService.createMonetaryTx(jwtMetadata.getUsername(), transactionDto);
+            log.info("Successfully created a transaction for '%s'".formatted(balanceIncreaseDto));
         } catch (EWalletException e) {
             log.error("Bad request: ", e);
             throw new ResponseStatusException(
@@ -81,19 +81,19 @@ public class TransactionController {
             "The amount left in the wallet can't go below zero.")
     @PutMapping("/decrease")
     @ResponseBody
-    public void createDecreaseBalanceTx(HttpServletRequest request, @RequestBody @Validated BalanceDecrease balanceDecrease) {
+    public void createDecreaseBalanceTx(HttpServletRequest request, @RequestBody @Validated BalanceDecreaseDto balanceDecreaseDto) {
         String accessToken = request.getHeader(AUTHORIZATION).substring(BEARER_PREFIX.length());
         JwtUtility jwtUtility = context.getBean(JwtUtility.class);
         JwtMetadata jwtMetadata = jwtUtility.extractMetadataFromTokenString(accessToken);
-        log.info("Creating a transaction for '%s'".formatted(balanceDecrease));
+        log.info("Creating a transaction for '%s'".formatted(balanceDecreaseDto));
         try {
-            Transaction transaction = Transaction.builder()
+            TransactionDto transactionDto = TransactionDto.builder()
                     .sessionId(jwtMetadata.getPlaySessionId())
-                    .txAmount(balanceDecrease.getTransactionAmount().negate())
-                    .txType(balanceDecrease.getTxType())
+                    .txAmount(balanceDecreaseDto.getTransactionAmount().negate())
+                    .txType(balanceDecreaseDto.getTxType())
                     .build();
-            transactionService.createMonetaryTx(jwtMetadata.getUsername(), transaction);
-            log.info("Successfully created a transaction for '%s'".formatted(balanceDecrease));
+            transactionService.createMonetaryTx(jwtMetadata.getUsername(), transactionDto);
+            log.info("Successfully created a transaction for '%s'".formatted(balanceDecreaseDto));
         } catch (EWalletException e) {
             log.error("Bad request: ", e);
             throw new ResponseStatusException(

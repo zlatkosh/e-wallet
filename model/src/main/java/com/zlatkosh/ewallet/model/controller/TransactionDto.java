@@ -1,5 +1,6 @@
-package com.zlatkosh.ewallet.model.db;
+package com.zlatkosh.ewallet.model.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,8 +9,10 @@ import java.util.Date;
 
 @Data
 @Builder
-public final class Transaction {
+public final class TransactionDto {
+    private final Long txId;
     private final String txType;
+    @JsonIgnore
     private final Long sessionId;
     private Date txTime;
     private final BigDecimal txAmount;

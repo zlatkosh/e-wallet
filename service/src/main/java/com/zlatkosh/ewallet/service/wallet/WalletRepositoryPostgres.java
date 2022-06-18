@@ -1,6 +1,6 @@
 package com.zlatkosh.ewallet.service.wallet;
 
-import com.zlatkosh.ewallet.model.db.Transaction;
+import com.zlatkosh.ewallet.model.controller.TransactionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,7 +21,7 @@ class WalletRepositoryPostgres implements WalletRepository {
                 (SELECT current_balance FROM e_wallet_pg.public.wallet WHERE username = wt.username) old_balance,
                 current_balance new_balance;
             """;
-    final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public void insertWallet(String username) {
@@ -29,17 +29,17 @@ class WalletRepositoryPostgres implements WalletRepository {
     }
 
     @Override
-    public Transaction doTransaction(String username, Transaction transaction) {
+    public TransactionDto doTransaction(String username, TransactionDto transactionDto) {
         return jdbcTemplate.queryForObject(DO_TRANSACTION_SQL,
-                (rs, rowNum) -> mapTransaction(rs, transaction),
-                transaction.getTxAmount(), username);
+                (rs, rowNum) -> mapTransaction(rs, transactionDto),
+                transactionDto.getTxAmount(), username);
     }
 
-    private static Transaction mapTransaction(ResultSet rs, Transaction transaction) throws SQLException {
-        transaction.setOldBalance(rs.getBigDecimal("old_balance"));
-        transaction.setNewBalance(rs.getBigDecimal("new_balance"));
-        transaction.setTxTime(new Date());
+    private static TransactionDto mapTransaction(ResultSet rs, TransactionDto transactionDto) throws SQLException {
+        transactionDto.setOldBalance(rs.getBigDecimal("old_balance"));
+        transactionDto.setNewBalance(rs.getBigDecimal("new_balance"));
+        transactionDto.setTxTime(new Date());
 
-        return transaction;
+        return transactionDto;
     }
 }

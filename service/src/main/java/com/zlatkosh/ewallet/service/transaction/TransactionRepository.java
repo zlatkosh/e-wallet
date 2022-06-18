@@ -1,8 +1,8 @@
 package com.zlatkosh.ewallet.service.transaction;
 
-import com.zlatkosh.ewallet.model.db.Transaction;
+import com.zlatkosh.ewallet.model.controller.TransactionDto;
 
 public interface TransactionRepository {
 
-    void createTransactionRecord(Transaction transaction);
+    void createTransactionRecord(TransactionDto transactionDto);
 }
