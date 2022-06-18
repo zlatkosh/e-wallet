@@ -1,6 +1,6 @@
 package com.zlatkosh.ewallet.service.transaction;
 
-import com.zlatkosh.ewallet.model.db.Transaction;
+import com.zlatkosh.ewallet.model.controller.TransactionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -12,10 +12,15 @@ public class TransactionRepositoryPostgres implements TransactionRepository {
             INSERT INTO e_wallet_pg.public.transaction(tx_type, session_id, tx_time, tx_amount, old_balance, new_balance)
             VALUES (?, ?, now(), ?::numeric::money, ?::numeric::money, ?::numeric::money)
             """;
-    final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public void createTransactionRecord(Transaction transaction) {
-        jdbcTemplate.update(CREATE_TRANSACTION_SQL, transaction.getTxType(), transaction.getSessionId(), transaction.getTxAmount(), transaction.getOldBalance(), transaction.getNewBalance());
+    public void createTransactionRecord(TransactionDto transactionDto) {
+        jdbcTemplate.update(CREATE_TRANSACTION_SQL,
+                transactionDto.getTxType(),
+                transactionDto.getSessionId(),
+                transactionDto.getTxAmount(),
+                transactionDto.getOldBalance(),
+                transactionDto.getNewBalance());
     }
 }

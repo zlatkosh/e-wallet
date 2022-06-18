@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class BalanceDecrease implements Serializable {
+public class BalanceDecreaseDto implements Serializable {
     public static final String WITHDRAW_BET = "WITHDRAW|BET";
 
     @NotNull @NotEmpty @Pattern( regexp = WITHDRAW_BET)

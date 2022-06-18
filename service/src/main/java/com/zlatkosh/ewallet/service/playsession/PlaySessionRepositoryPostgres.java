@@ -12,7 +12,7 @@ public class PlaySessionRepositoryPostgres implements PlaySessionRepository {
     private static final String CREATE_PLAY_SESSION_SQL = """
             INSERT INTO e_wallet_pg.public.play_session(username, start_time, end_time) VALUES (?, now(), ?)  RETURNING session_id
             """;
-    final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public Long createPlaySession(String username, Date endTime) {

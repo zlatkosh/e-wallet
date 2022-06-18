@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class BalanceIncrease implements Serializable {
+public class BalanceIncreaseDto implements Serializable {
     public static final String DEPOSIT_WIN = "DEPOSIT|WIN";
 
     @NotNull @NotEmpty @Pattern( regexp = DEPOSIT_WIN)

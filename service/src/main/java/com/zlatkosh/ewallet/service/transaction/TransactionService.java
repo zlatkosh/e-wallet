@@ -1,6 +1,6 @@
 package com.zlatkosh.ewallet.service.transaction;
 
-import com.zlatkosh.ewallet.model.db.Transaction;
+import com.zlatkosh.ewallet.model.controller.TransactionDto;
 import com.zlatkosh.ewallet.model.exception.EWalletException;
 import com.zlatkosh.ewallet.service.wallet.WalletRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +22,9 @@ public class TransactionService {
     private final WalletRepository walletRepository;
 
     @Retryable(value = Exception.class, maxAttempts = 5, backoff = @Backoff(delay = 100))
-    public void createMonetaryTx(String username, Transaction inputTx) {
+    public void createMonetaryTx(String username, TransactionDto inputTx) {
         try {
-            Transaction walletTx = walletRepository.doTransaction(username, inputTx);
+            TransactionDto walletTx = walletRepository.doTransaction(username, inputTx);
             if (walletTx.getNewBalance().compareTo(new BigDecimal(0)) < 0) {
                 throw new EWalletException("Insufficient funds! You tried to take %.2f from you wallet when your current balance is %.2f."
                         .formatted(walletTx.getTxAmount(), walletTx.getOldBalance()));
