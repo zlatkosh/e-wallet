@@ -30,12 +30,10 @@ public class PlaySessionController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Play session successfully created",
                     content = @Content),
-            @ApiResponse(responseCode = "400", description = "Bad request",
-                    content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content),
     })
-    @Operation(description = "This method is used to create a play session for an existing User. " +
+    @Operation(description = "This controller is used to create a play session for an existing User. " +
             "One user can have multiple play sessions. " +
             "A play session is automatically created upon a successful login and has the same expiration as the generated refresh token." +
             "Meaning a new play session is created with the next login after the refresh token has expired.")
@@ -49,8 +47,8 @@ public class PlaySessionController {
             Long playSessionId = playSessionService.createNewPlaySession(username, jwtUtility.extractMetadataFromTokenString(accessToken).getPlaySessionEndDate());
             log.info("Successfully created a play session with id '%d' for user '%s'".formatted(playSessionId, username));
         } catch (Exception e) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST, "Bad request: %s".formatted(e.getMessage()));
+            log.error("Internal Server Error: ", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error: %s".formatted(e.getMessage()));
         }
     }
 }

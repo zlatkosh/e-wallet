@@ -1,5 +1,6 @@
 package com.zlatkosh.ewallet.service.wallet;
 
+import com.zlatkosh.ewallet.model.exception.EWalletException;
 import com.zlatkosh.ewallet.service.security.JwtUtility;
 import com.zlatkosh.ewallet.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,7 +40,7 @@ public class WalletController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content),
     })
-    @Operation(description = "This method is used to create a wallet for an existing User. " +
+    @Operation(description = "This controller is used to create a wallet for an existing User. " +
             "The limitation is that only a single wallet can exist for any given user.")
     @PutMapping("/create")
     public void createWallet(HttpServletRequest request) {
@@ -53,9 +54,12 @@ public class WalletController {
         try {
             walletService.createNewWallet(username);
             log.info("Successfully created a wallet for user '%s'".formatted(username));
-        } catch (Exception e) {
+        } catch (EWalletException e) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Bad request: %s".formatted(e.getMessage()));
+        } catch (Exception e) {
+            log.error("Internal Server Error: ", e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error: %s".formatted(e.getMessage()));
         }
     }
 }

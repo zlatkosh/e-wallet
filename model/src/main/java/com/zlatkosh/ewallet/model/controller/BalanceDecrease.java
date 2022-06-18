@@ -10,10 +10,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class BalanceIncrease implements Serializable {
-    public static final String DEPOSIT_WIN = "DEPOSIT|WIN";
+public class BalanceDecrease implements Serializable {
+    public static final String WITHDRAW_BET = "WITHDRAW|BET";
 
-    @NotNull @NotEmpty @Pattern( regexp = DEPOSIT_WIN)
+    @NotNull @NotEmpty @Pattern( regexp = WITHDRAW_BET)
     private String txType;
     @NotNull @Positive
     private BigDecimal transactionAmount;
