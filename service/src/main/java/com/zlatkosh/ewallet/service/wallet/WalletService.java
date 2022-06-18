@@ -18,10 +18,6 @@ public class WalletService {
             String message = "Failed to create a wallet for user '%s'. The user already has an existing wallet!";
             log.error(message);
             throw new EWalletException( message.formatted(username));
-        } catch (Exception e) {
-            String message = "Failed to create a wallet for user '%s'.".formatted(username);
-            log.error(message, e);
-            throw new EWalletException(message);
         }
     }
 }
