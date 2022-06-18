@@ -57,7 +57,7 @@ The secret used to encode both JWTs is hardcoded in constant [com.zlatkosh.ewall
 This API is used to create a wallet for the logged-in User/Player. The limitation is that only a single wallet can exist for any given user.   
 The only thing this API needs is the **accessToken** provided by the [Login endpoint](#login-endpoint). 
 It takes the username of the user for whom the wallet will be created from the decoded **accessToken**. 
-The wallet is created with a balance od 0.00 in the currency of the DB locale. The wallet DB table is updated.
+The wallet is created with a balance of 0.00 in the currency of the DB locale. The wallet DB table is updated.
 
 ### Create Play Session API
 **PUT** request to API mapping **/session/create**  
