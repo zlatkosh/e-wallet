@@ -15,7 +15,6 @@ import java.io.IOException;
 
 import static com.zlatkosh.ewallet.service.security.JwtUtility.BEARER_PREFIX;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter.DEFAULT_LOGIN_PAGE_URL;
 
 @Component
 @RequiredArgsConstructor
@@ -26,8 +25,8 @@ public class EWalletAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (request.getServletPath().equals(DEFAULT_LOGIN_PAGE_URL)
-                ||request.getServletPath().equals("/access/refresh_token")) {
+
+        if (SecurityConfig.PERMITTED_PATHS.contains(request.getServletPath())) {
             filterChain.doFilter(request, response);
         } else {
             String authorizationHeader = request.getHeader(AUTHORIZATION);

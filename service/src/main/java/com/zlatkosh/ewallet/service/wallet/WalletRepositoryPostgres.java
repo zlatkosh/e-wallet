@@ -16,10 +16,10 @@ class WalletRepositoryPostgres implements WalletRepository {
             INSERT INTO e_wallet_pg.public.wallet(username, current_balance) VALUES (?,?::numeric)
             """;
     private static final String DO_TRANSACTION_SQL = """
-            UPDATE e_wallet_pg.public.wallet wt SET current_balance = current_balance::money::numeric + ? WHERE username = ?
+            UPDATE e_wallet_pg.public.wallet wt SET current_balance = current_balance::numeric + ? WHERE username = ?
             RETURNING
-                (SELECT current_balance FROM e_wallet_pg.public.wallet WHERE username = wt.username) old_balance,
-                current_balance new_balance;
+                (SELECT current_balance::numeric FROM e_wallet_pg.public.wallet WHERE username = wt.username) old_balance,
+                current_balance::numeric new_balance;
             """;
     private final JdbcTemplate jdbcTemplate;
 

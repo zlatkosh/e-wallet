@@ -20,9 +20,9 @@ public class TransactionHistoryRepositoryPostgres implements TransactionHistoryR
                    t.tx_id,
                    t.tx_type,
                    t.tx_time,
-                   t.tx_amount,
-                   t.old_balance,
-                   t.new_balance
+                   t.tx_amount::numeric,
+                   t.old_balance::numeric,
+                   t.new_balance::numeric
             FROM e_wallet_pg.public.play_session ps
                      INNER JOIN e_wallet_pg.public.transaction t on ps.session_id = t.session_id
             WHERE ps.username = ?

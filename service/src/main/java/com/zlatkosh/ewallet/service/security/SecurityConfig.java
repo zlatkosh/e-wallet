@@ -1,5 +1,9 @@
 package com.zlatkosh.ewallet.service.security;
 
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,10 +19,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    public static final List<String> PERMITTED_PATHS = List.of("/login", "/access/refresh_token", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**");
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, EWalletAuthenticationFilter eWalletAuthenticationFilter, EWalletAuthorizationFilter eWalletAuthorizationFilter) throws Exception {
@@ -27,7 +34,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests((authz) -> authz
-                        .antMatchers("/login", "/access/refresh_token").permitAll()
+                        .antMatchers(PERMITTED_PATHS.toArray(String[]::new)).permitAll()
                         .antMatchers(HttpMethod.GET).hasAuthority("ADMIN")
                         .antMatchers(HttpMethod.PUT).hasAuthority("ADMIN")
                         .anyRequest().authenticated()
@@ -50,5 +57,19 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    public OpenAPI customizeOpenAPI() {
+        final String securitySchemeName = "bearerAuth";
+        return new OpenAPI()
+                .addSecurityItem(new SecurityRequirement()
+                        .addList(securitySchemeName))
+                .components(new Components()
+                        .addSecuritySchemes(securitySchemeName, new SecurityScheme()
+                                .name(securitySchemeName)
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")));
     }
 }
