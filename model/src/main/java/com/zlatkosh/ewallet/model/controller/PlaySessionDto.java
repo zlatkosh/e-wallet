@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 @Data
 public final class PlaySessionDto {
-    private final long sessionId;
+    private final Long sessionId;
     private final Date sessionStartTime;
     private final Date sessionEndTime;
     private final List<TransactionDto> transactions;
