@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "7054a542-f8b9-47e9-bd5e-1e6fe2d4af67",
+		"name": "e-wallet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createWallet",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "username",
+						"value": "zlatko",
+						"type": "default",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6bGF0a28iLCJwbGF5X3Nlc3Npb25faWQiOjExLCJyb2xlcyI6WyJBRE1JTiJdLCJpc3MiOiJlLXdhbGxldCIsInBsYXlfc2Vzc2lvbl9lbmRfZGF0ZSI6MTY1NTU1NzEwMiwiZXhwIjoxNjU1NTU0MTAyLCJpYXQiOjE2NTU1NTM1MDJ9.OAXFY2EDUbfQjZHbTRPbPoKtISiAmijx8xJXayWeZGY",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9093/wallet/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9093",
+					"path": [
+						"wallet",
+						"create"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "zlatkosh",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9093/login?username=zlatko&password=password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9093",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "zlatko"
+						},
+						{
+							"key": "password",
+							"value": "password"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refresh_token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6bGF0a28iLCJwbGF5X3Nlc3Npb25faWQiOjksImlzcyI6ImUtd2FsbGV0IiwicGxheV9zZXNzaW9uX2VuZF9kYXRlIjoxNjU1NTQwMDY0LCJleHAiOjE2NTU1NDAwNjQsImlhdCI6MTY1NTUzNjQ2NH0.S-HhZaNtQ5q5kgh05-adE8jiCYr6PXMRlNxVop5AT_o",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9093/access/refresh_token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9093",
+					"path": [
+						"access",
+						"refresh_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createPlaySession",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6bGF0a28iLCJwbGF5X3Nlc3Npb25faWQiOiIzIiwicm9sZXMiOlsiQURNSU4iXSwiaXNzIjoiZS13YWxsZXQiLCJwbGF5X3Nlc3Npb25fZW5kX2RhdGUiOjE2NTUzOTM4NTAsImV4cCI6MTY1NTM5MDg1MCwiaWF0IjoxNjU1MzkwMjUwfQ.vNLU1GdzqI8YHjRja4WRdZsII90KW_bszzUrMQk7Fbs",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9093/session/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9093",
+					"path": [
+						"session",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createIncreaseBalanceTransaction",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6bGF0a28iLCJwbGF5X3Nlc3Npb25faWQiOjEyLCJyb2xlcyI6WyJBRE1JTiJdLCJpc3MiOiJlLXdhbGxldCIsInBsYXlfc2Vzc2lvbl9lbmRfZGF0ZSI6MTY1NTU2MDc3MCwiZXhwIjoxNjU1NTU3NzcwLCJpYXQiOjE2NTU1NTcxNzB9.AmXn5hCT3yJJqx4dzegMuJ2xZobz55EE-h5RSiCoHP4",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"txType\" : \"DEPOSIT\",\r\n    \"transactionAmount\" : 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9093/tx/balance/increase",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9093",
+					"path": [
+						"tx",
+						"balance",
+						"increase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createDecreaseBalanceTransaction",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6bGF0a28iLCJwbGF5X3Nlc3Npb25faWQiOjExLCJyb2xlcyI6WyJBRE1JTiJdLCJpc3MiOiJlLXdhbGxldCIsInBsYXlfc2Vzc2lvbl9lbmRfZGF0ZSI6MTY1NTU1NzEwMiwiZXhwIjoxNjU1NTU0MTAyLCJpYXQiOjE2NTU1NTM1MDJ9.OAXFY2EDUbfQjZHbTRPbPoKtISiAmijx8xJXayWeZGY",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"txType\" : \"BET\",\r\n    \"transactionAmount\" : 1.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9093/tx/balance/decrease",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9093",
+					"path": [
+						"tx",
+						"balance",
+						"decrease"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTransactionHistory",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6bGF0a28iLCJwbGF5X3Nlc3Npb25faWQiOjEyLCJyb2xlcyI6WyJBRE1JTiJdLCJpc3MiOiJlLXdhbGxldCIsInBsYXlfc2Vzc2lvbl9lbmRfZGF0ZSI6MTY1NTU2MDc3MCwiZXhwIjoxNjU1NTU3NzcwLCJpYXQiOjE2NTU1NTcxNzB9.AmXn5hCT3yJJqx4dzegMuJ2xZobz55EE-h5RSiCoHP4",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9093/history/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9093",
+					"path": [
+						"history",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
