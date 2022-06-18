@@ -2,10 +2,7 @@ package com.zlatkosh.ewallet.model.controller;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -15,6 +12,6 @@ public class BalanceDecreaseDto implements Serializable {
 
     @NotNull @NotEmpty @Pattern( regexp = WITHDRAW_BET)
     private String txType;
-    @NotNull @Positive
+    @NotNull @Positive @Digits(integer = Integer.MAX_VALUE, fraction = 2)
     private BigDecimal transactionAmount;
 }

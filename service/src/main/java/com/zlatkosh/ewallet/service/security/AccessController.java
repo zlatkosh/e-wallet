@@ -3,6 +3,7 @@ package com.zlatkosh.ewallet.service.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zlatkosh.ewallet.model.security.JwtMetadata;
 import com.zlatkosh.ewallet.service.user.UserService;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -31,6 +32,7 @@ public class AccessController {
 
     private final ApplicationContext context;
 
+    @Hidden
     @GetMapping("/refresh_token")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
