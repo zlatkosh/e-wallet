@@ -3,6 +3,21 @@ plugins {
     id("maven-publish")
     id("java-library")
 }
+archivesBaseName = "e-wallet"
+
+dependencies {
+    implementation project(':service')
+    developmentOnly "org.springframework.boot:spring-boot-devtools:$springBootVersion"
+}
+
+bootJar {
+    archiveBaseName = "e-wallet-boot"
+    launchScript()
+}
+
+springBoot {
+    buildInfo()
+}
 
 publishing {
     repositories {
@@ -15,33 +30,11 @@ publishing {
             }
         }
     }
+
     publications {
-        mavenJava(MavenPublication) {
-            from(components.java)
-        }
-    }
-}
-
-archivesBaseName = "e-wallet"
-dependencies {
-    implementation project(':service')
-    developmentOnly "org.springframework.boot:spring-boot-devtools:$springBootVersion"
-}
-
-afterEvaluate {
-    List<String> deps = new ArrayList<>()
-    configurations.runtimeClasspath.resolvedConfiguration.resolvedArtifacts.each { artifact ->
-        deps.add(artifact.name + "_" + artifact.moduleVersion.id.version)
-    }
-    springBoot {
-        buildInfo {
-            properties {
-                artifact = 'e-wallet'
-                additional = [
-                        buildtime   : new Date().format('yyyyMMdd-HHmmss'),
-                        dependencies: deps
-                ]
-            }
+        bootJava(MavenPublication) {
+            artifactId = 'e-wallet'
+            artifact bootJar
         }
     }
 }
