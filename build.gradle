@@ -6,7 +6,13 @@ plugins {
 }
 
 group = 'com.zlatkosh'
-version = "1.0."+System.getenv("CI_JOB_ID")
+ext {
+    minorNumber = "0-beta"
+}
+if (System.properties.containsKey("github.run_number")) {
+    minorNumber = $github.run_number
+}
+version = "1.0.$minorNumber"
 
 publishing {
     repositories {
