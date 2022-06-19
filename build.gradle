@@ -5,6 +5,8 @@ plugins {
     id("java-library")
 }
 
+group = 'com.zlatkosh'
+
 publishing {
     repositories {
         maven {
@@ -30,7 +32,6 @@ springBoot {
 subprojects {
     apply plugin: 'java-library'
 
-    group = 'com.zlatkosh'
     version = '1.0'
     sourceCompatibility = '17'
 
