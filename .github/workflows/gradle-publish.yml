@@ -30,8 +30,8 @@ jobs:
         run: |
           mkdir -p ~/.gradle/
           echo "GRADLE_USER_HOME=${HOME}/.gradle" >> $GITHUB_ENV
-          echo "${GRADLE_PROPERTIES}" > ~/.gradle/gradle.properties
-          echo "THE_FILE" | cat ~/.gradle/gradle.properties
+          echo "github.run_number=" | ${GRADLE_PROPERTIES} > ~/.gradle/gradle.properties
+          echo "Content of gradle.properties: " | cat ~/.gradle/gradle.properties
       - name: Build with Gradle
         uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
         with:
