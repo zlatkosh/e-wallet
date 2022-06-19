@@ -9,11 +9,12 @@ group = 'com.zlatkosh'
 ext {
     minorNumber = "0-beta"
 }
-print System.properties
 if (properties.containsKey("github.run_number")) {
-    minorNumber = $github.run_number
+    minorNumber = properties.get("github.run_number")
 }
 version = "1.0.$minorNumber"
+
+println "version: " +version
 
 publishing {
     repositories {
@@ -40,7 +41,6 @@ springBoot {
 subprojects {
     apply plugin: 'java-library'
 
-
     sourceCompatibility = '17'
 
     configurations {
@@ -51,12 +51,14 @@ subprojects {
 
     repositories {
         mavenCentral()
-        maven {
-            name = "GitHubPackages"
-            url = "https://maven.pkg.github.com/zlatkosh/e-wallet"
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+        publishing {
+            maven {
+                name = "GitHubPackages"
+                url = "https://maven.pkg.github.com/zlatkosh/e-wallet"
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
             }
         }
     }
