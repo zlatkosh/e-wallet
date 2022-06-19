@@ -6,6 +6,7 @@ plugins {
 }
 
 group = 'com.zlatkosh'
+version = "1.0."+System.getenv("CI_JOB_ID")
 
 publishing {
     repositories {
@@ -32,7 +33,7 @@ springBoot {
 subprojects {
     apply plugin: 'java-library'
 
-    version = '1.0'
+
     sourceCompatibility = '17'
 
     configurations {
