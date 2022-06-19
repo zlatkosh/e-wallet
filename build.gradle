@@ -9,7 +9,7 @@ group = 'com.zlatkosh'
 ext {
     minorNumber = "0-beta"
 }
-if (System.properties.containsKey("github.run_number")) {
+if (properties.containsKey("github.run_number")) {
     minorNumber = $github.run_number
 }
 version = "1.0.$minorNumber"
