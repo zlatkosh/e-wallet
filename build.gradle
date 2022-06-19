@@ -18,7 +18,7 @@ publishing {
     }
     publications {
         gpr(MavenPublication) {
-            from components.java
+            from(components.java)
         }
     }
 }
@@ -38,6 +38,19 @@ subprojects {
 
     repositories {
         mavenCentral()
+    }
+
+    publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = "https://maven.pkg.github.com/zlatkosh/e-wallet"
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
     }
 
     ext {
