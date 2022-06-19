@@ -1,14 +1,19 @@
 plugins {
     id 'org.springframework.boot' version '2.7.0'
-    id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("maven-publish")
 }
 
 subprojects {
+    group = 'com.zlatkosh'
+    ext {
+        minorNumber = "0-beta"
+    }
+    if (properties.containsKey("github.run_number")) {
+        minorNumber = properties.get("github.run_number")
+    }
+    version = "1.0.$minorNumber"
+
     apply plugin: 'java-library'
 
-    group = 'com.zlatkosh'
-    version = '1.0'
     sourceCompatibility = '17'
 
     configurations {
@@ -20,7 +25,6 @@ subprojects {
     repositories {
         mavenCentral()
     }
-
     ext {
         testcontainersVersion = "1.17.2"
         springBootVersion = "2.7.0"
