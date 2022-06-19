@@ -9,6 +9,7 @@ group = 'com.zlatkosh'
 ext {
     minorNumber = "0-beta"
 }
+print System.properties
 if (properties.containsKey("github.run_number")) {
     minorNumber = $github.run_number
 }
@@ -50,6 +51,14 @@ subprojects {
 
     repositories {
         mavenCentral()
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/zlatkosh/e-wallet"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 
     ext {
