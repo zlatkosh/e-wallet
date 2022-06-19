@@ -23,6 +23,10 @@ publishing {
     }
 }
 
+springBoot {
+    mainClass.value("com.zlatkosh.ewallet.EWalletServerApplication")
+}
+
 subprojects {
     apply plugin: 'java-library'
 
