@@ -50,7 +50,7 @@ app.security.expiry.refresh-token=3600000
 #access token expiry in milliseconds. Default is 10 minutes: 10*60*1000=600000
 app.security.expiry.access-token=600000
 ```
-The secret used to encode both JWTs is hardcoded in constant [com.zlatkosh.ewallet.service.security.JwtUtility.SECRET_KEY](service/src/main/java/com/zlatkosh/ewallet/service/security/JwtUtility.java)
+The secret used to encode both JWTs is hardcoded in constant [JwtUtility.SECRET_KEY](service/src/main/java/com/zlatkosh/ewallet/security/JwtUtility.java)
 
 ### Create wallet API
 **PUT** request to API mapping **/wallet/create**  
@@ -203,16 +203,16 @@ The response is a serialized version of [UserDataDto](model/src/main/java/com/zl
 ```
 
 ### Running the application locally
-The application creates its own DB schema the first time it runs using [V1__init_db.sql](service/src/main/resources/db/migration/V1__init_db.sql) which gets executed by [FlyWay](https://flywaydb.org/documentation/usage/plugins/springboot). To do that however it requires knowledge of a few things.
- - [DB_datasource.properties](service/src/main/resources/DB_datasource.properties) contains the Postgres connection details the DataSource will need.  
+The application creates its own DB schema the first time it runs using [V1__init_db.sql](data_access/src/main/resources/db/migration/V1__init_db.sql) which gets executed by [FlyWay](https://flywaydb.org/documentation/usage/plugins/springboot). To do that however it requires knowledge of a few things.
+ - [DB_datasource.properties](data_access/src/main/resources/DB_datasource.properties) contains the Postgres connection details the DataSource will need.  
  - [docker-compose.yaml](docker-compose.yaml) creates the Postgres database instance this application will use.  
 Before the first run of the application it needs to be executed against a running local docker instance. This part can be skipped if you already have a running Postgres instance, 
-but [DB_datasource.properties](service/src/main/resources/DB_datasource.properties) will need to be updated if that's the case.  
- - [application.properties](/server/src/main/resources/application.properties) contains the following properties:
+but [DB_datasource.properties](data_access/src/main/resources/DB_datasource.properties) will need to be updated if that's the case.  
+ - [application.properties](server/src/main/resources/application.properties) contains the following properties:
    - **server.port** used to configure the port on which the application will run
    - **app.security.expiry.access-token** used to define the duration of the generated **accessToken** in milliseconds
    - **app.security.expiry.refresh-token** used to define the duration of the generated **refreshToken** and Play Session in milliseconds
 
- - [logback.xml](/server/src/main/resources/logback.xml) contains the Logback logging configuration
+ - [logback.xml](server/src/main/resources/logback.xml) contains the Logback logging configuration
 
 [EWalletServerApplication.java](server/src/main/java/com/zlatkosh/ewallet/EWalletServerApplication.java) is the main class and no additional configuration is needed to run the application from within an IDE like IntelliJ IDEA.

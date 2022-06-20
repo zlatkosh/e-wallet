@@ -1,0 +1,7 @@
+dependencies {
+    implementation project(':model')
+
+    implementation dep.fliway
+    implementation dep.springBootStarterJdbc
+    runtimeOnly dep.postgresql
+}
