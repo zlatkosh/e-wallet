@@ -2,11 +2,8 @@ dependencies {
     implementation project(':model')
     implementation project(':data_access')
 
-    implementation dep.validationApi
     implementation dep.springBootStarterJdbc
     implementation dep.springBootStarterValidation
-    implementation dep.springdocOpenapiUi
     implementation dep.springRetry
     implementation dep.springAspects
-    implementation dep.javaJwt
 }

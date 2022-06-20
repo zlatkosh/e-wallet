@@ -4,4 +4,5 @@ include ':model'
 include ':server'
 include ':service'
 include ':data_access'
+include 'controller'
 

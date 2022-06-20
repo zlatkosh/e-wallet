@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class WalletService {
+class WalletService {
     private final WalletRepository walletRepository;
 
     void createNewWallet(String username) {

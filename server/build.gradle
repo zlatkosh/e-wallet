@@ -6,7 +6,7 @@ plugins {
 archivesBaseName = "e-wallet"
 
 dependencies {
-    implementation project(':service')
+    implementation project(':controller')
     developmentOnly dep.springBootDevtools
 }
 

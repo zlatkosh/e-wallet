@@ -1,6 +1,5 @@
 package com.zlatkosh.ewallet.history;
 
-import com.zlatkosh.ewallet.history.TransactionHistoryRepository;
 import com.zlatkosh.ewallet.model.controller.PlaySessionDto;
 import com.zlatkosh.ewallet.model.controller.TransactionDto;
 import com.zlatkosh.ewallet.model.controller.UserDataDto;
@@ -18,10 +17,10 @@ import java.util.stream.Stream;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class TransactionHistoryService {
+class TransactionHistoryService {
     private final TransactionHistoryRepository transactionHistoryRepository;
 
-    public UserDataDto getPlayerTransactionHistory(String username) {
+    UserDataDto getPlayerTransactionHistory(String username) {
 
         Stream<PlayerTransactionHistory> playerTransactionHistoryStream = transactionHistoryRepository.getPlayerTransactionHistory(username);
         final UserDataDto userDataDto = UserDataDto.builder().playSessions(new ArrayList<>()).build();
