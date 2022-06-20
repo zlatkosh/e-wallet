@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--console charset ISO-8859-1-->
+            <charset>UTF-8</charset>
+            <Pattern>%d %green([%thread]) %highlight(%level) %logger{50} - %msg%n</Pattern>
+        </encoder>
     </appender>
-    <logger name="jsonLogger" additivity="false" level="INFO">
-        <appender-ref ref="consoleAppender"/>
-    </logger>
+<!--    <logger name="jsonLogger" additivity="false" level="INFO">-->
+<!--        <appender-ref ref="consoleAppender"/>-->
+<!--    </logger>-->
     <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>e-wallet.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">

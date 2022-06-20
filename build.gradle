@@ -10,7 +10,7 @@ subprojects {
     if (properties.containsKey("github.run_number")) {
         minorNumber = properties.get("github.run_number")
     }
-    version = "1.0.$minorNumber"
+    version = "1.1.$minorNumber"
 
     apply plugin: 'java-library'
 
@@ -38,6 +38,19 @@ subprojects {
         springRetryVersion = "1.3.3"
         springVersion = "5.3.20"
         logbackVersion = "7.2"
+
+        dep = [
+                validationApi               :   "javax.validation:validation-api:${javaxValidationVersion}",
+                fliway                      :   "org.flywaydb:flyway-core:$fliwayVersion",
+                springBootStarterJdbc       :   "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion",
+                springBootStarterValidation :   "org.springframework.boot:spring-boot-starter-validation:$springBootVersion",
+                springdocOpenapiUi          :   "org.springdoc:springdoc-openapi-ui:$springdocOpenapiUiVersion",
+                springRetry                 :   "org.springframework.retry:spring-retry:$springRetryVersion",
+                springAspects               :   "org.springframework:spring-aspects:$springVersion",
+                javaJwt                     :   "com.auth0:java-jwt:$javaJwtVersion",
+                postgresql                  :   "org.postgresql:postgresql:$postgresVersion",
+                springBootDevtools          :   "org.springframework.boot:spring-boot-devtools:$springBootVersion"
+        ]
     }
 
     dependencies {
