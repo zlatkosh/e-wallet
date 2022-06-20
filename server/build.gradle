@@ -7,7 +7,7 @@ archivesBaseName = "e-wallet"
 
 dependencies {
     implementation project(':service')
-    developmentOnly "org.springframework.boot:spring-boot-devtools:$springBootVersion"
+    developmentOnly dep.springBootDevtools
 }
 
 bootJar {

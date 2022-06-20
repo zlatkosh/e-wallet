@@ -1,13 +1,13 @@
 dependencies {
     implementation project(':model')
 
-    implementation ("javax.validation:validation-api:${javaxValidationVersion}")
-    implementation "org.flywaydb:flyway-core:$fliwayVersion"
-    implementation "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion"
-    implementation "org.springframework.boot:spring-boot-starter-validation:$springBootVersion"
-    implementation "org.springdoc:springdoc-openapi-ui:$springdocOpenapiUiVersion"
-    implementation "org.springframework.retry:spring-retry:$springRetryVersion"
-    implementation "org.springframework:spring-aspects:$springVersion"
-    implementation "com.auth0:java-jwt:$javaJwtVersion"
-    runtimeOnly "org.postgresql:postgresql:$postgresVersion"
+    implementation dep.validationApi
+    implementation dep.fliway
+    implementation dep.springBootStarterJdbc
+    implementation dep.springBootStarterValidation
+    implementation dep.springdocOpenapiUi
+    implementation dep.springRetry
+    implementation dep.springAspects
+    implementation dep.javaJwt
+    runtimeOnly dep.postgresql
 }
