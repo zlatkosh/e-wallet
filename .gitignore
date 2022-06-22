@@ -39,3 +39,4 @@ out/
 *e-wallet.log
 *e-wallet.zip
 /gradle.properties
+/db_backup/
