@@ -6,8 +6,8 @@ plugins {
 archivesBaseName = "e-wallet"
 
 dependencies {
-    implementation project(':service')
-    developmentOnly "org.springframework.boot:spring-boot-devtools:$springBootVersion"
+    implementation project(':controller')
+    developmentOnly dep.springBootDevtools
 }
 
 bootJar {

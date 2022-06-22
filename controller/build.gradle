@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(':model')
+    implementation project(':service')
+
+    implementation dep.validationApi
+    implementation dep.springdocOpenapiUi
+    implementation dep.javaJwt
+    implementation dep.springBootStarterJdbc
+}
