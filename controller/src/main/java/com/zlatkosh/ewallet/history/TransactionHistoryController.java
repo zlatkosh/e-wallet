@@ -33,8 +33,6 @@ public class TransactionHistoryController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved play session and transaction history",
                     content = @Content),
-            @ApiResponse(responseCode = "406", description = "Not acceptable.",
-                    content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content),
     })

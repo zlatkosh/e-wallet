@@ -10,7 +10,8 @@ The **e-wallet** application exposes the following endpoints:
  - [Create Decrease Balance Transaction API](#create-decrease-balance-transaction-api) 
  - [Get User Session/Transaction History API](#get-user-sessiontransaction-history-api) 
 
-[e-wallet.postman_collection.json](server/src/test/resources/e-wallet.postman_collection.json): Is the exported  Postman project I used to test this application locally.
+[e-wallet.postman_collection.json](server/src/test/resources/e-wallet.postman_collection.json): 
+Is the exported  Postman project I used to test this application locally.
 
 A Swagger UI is available with mapping **/swagger-ui/index.html**. 
 The Swagger UI however does not expose the login and refresh_token endpoints.  
@@ -50,7 +51,7 @@ app.security.expiry.refresh-token=3600000
 #access token expiry in milliseconds. Default is 10 minutes: 10*60*1000=600000
 app.security.expiry.access-token=600000
 ```
-The secret used to encode both JWTs is hardcoded in constant [JwtUtility.SECRET_KEY](service/src/main/java/com/zlatkosh/ewallet/security/JwtUtility.java)
+The secret used to encode both JWTs is hardcoded in constant [JwtUtility.SECRET_KEY](controller/src/main/java/com/zlatkosh/ewallet/security/JwtUtility.java)
 
 ### Create wallet API
 **PUT** request to API mapping **/wallet/create**  
@@ -202,12 +203,29 @@ The response is a serialized version of [UserDataDto](model/src/main/java/com/zl
 }
 ```
 
-### Running the application locally
-The application creates its own DB schema the first time it runs using [V1__init_db.sql](data_access/src/main/resources/db/migration/V1__init_db.sql) which gets executed by [FlyWay](https://flywaydb.org/documentation/usage/plugins/springboot). To do that however it requires knowledge of a few things.
- - [DB_datasource.properties](data_access/src/main/resources/DB_datasource.properties) contains the Postgres connection details the DataSource will need.  
- - [docker-compose.yaml](docker-compose.yaml) creates the Postgres database instance this application will use.  
-Before the first run of the application it needs to be executed against a running local docker instance. This part can be skipped if you already have a running Postgres instance, 
-but [DB_datasource.properties](data_access/src/main/resources/DB_datasource.properties) will need to be updated if that's the case.  
+### Running the application
+- [docker-compose.yaml](docker-compose.yaml) contains 3 Docker containers named:
+   - **postgres** : creates the Postgres database instance this application will use.
+   - **e-wallet-app** : creates a Docker instance of the e-wallet application running oh http port **9094**
+   - **e-wallet-app-2** : creates a second Docker instance of the e-wallet application running oh http port **9095**
+  > **Note** the 2 e-wallet-app instances can be run in parallel to a local workspace instance since that one would be started on port 9093
+  
+  > **⚠ Warning!** if you are using an external DB the 2 e-wallet-app instances can only be run if you modify [docker-compose.yaml](docker-compose.yaml) by:  
+  >  - replacing the existing DB URL with your new one
+  >  - removing the **depends_on:** segment.
+
+Before running the application for the first time the **postgres** container found in [docker-compose.yaml](docker-compose.yaml) 
+needs to be executed against a running local docker instance.  
+This part can be skipped if you already have a running Postgres instance, but for local workspace runs 
+[DB_datasource.properties](data_access/src/main/resources/DB_datasource.properties) will need to be updated if that's the case.  
+
+The application creates its own DB schema the first time it runs using 
+[V1__init_db.sql](data_access/src/main/resources/db/migration/V1__init_db.sql) which gets executed by 
+[FlyWay](https://flywaydb.org/documentation/usage/plugins/springboot). 
+To do that however it requires knowledge of a few things.
+
+ - [DB_datasource.properties](data_access/src/main/resources/DB_datasource.properties) contains the Postgres connection details the DataSource will need.
+   
  - [application.properties](server/src/main/resources/application.properties) contains the following properties:
    - **server.port** used to configure the port on which the application will run
    - **app.security.expiry.access-token** used to define the duration of the generated **accessToken** in milliseconds

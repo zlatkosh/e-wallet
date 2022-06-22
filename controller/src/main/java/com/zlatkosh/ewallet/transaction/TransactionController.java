@@ -31,11 +31,9 @@ public class TransactionController {
     private final ApplicationContext context;
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Increase balance transaction successfully created",
+            @ApiResponse(responseCode = "200", description = "Increase balance transaction successfully executed.",
                     content = @Content),
-            @ApiResponse(responseCode = "400", description = "Bad request",
-                    content = @Content),
-            @ApiResponse(responseCode = "406", description = "Not acceptable.",
+            @ApiResponse(responseCode = "400", description = "Bad request!",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content),
@@ -67,11 +65,9 @@ public class TransactionController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Decrease balance transaction successfully created",
+            @ApiResponse(responseCode = "200", description = "Decrease balance transaction successfully executed.",
                     content = @Content),
-            @ApiResponse(responseCode = "400", description = "Bad request",
-                    content = @Content),
-            @ApiResponse(responseCode = "406", description = "Not acceptable.",
+            @ApiResponse(responseCode = "400", description = "Bad request!",
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content),
