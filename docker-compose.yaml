@@ -1,27 +1,11 @@
 services:
   e-wallet-app:
-    container_name: e-wallet-app
     build:
       context: .
       dockerfile: Dockerfile
     image: e-wallet-app:latest
     ports:
-      - 9094:9093
-    depends_on:
-      postgres:
-        condition: service_healthy
-    environment:
-      - SERVICE_DATASOURCE_POSTGRES_JDBC_URL=jdbc:postgresql://postgres:5432/e_wallet_pg
-    networks:
-      - e-wallet-network
-  e-wallet-app-2:
-    container_name: e-wallet-app-2
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: e-wallet-app:latest
-    ports:
-      - 9095:9093
+      - 9094-9103:9093
     depends_on:
       postgres:
         condition: service_healthy
@@ -32,6 +16,7 @@ services:
   postgres:
     container_name: postgres_e_wallet
     image: postgres
+    command: postgres -c 'max_connections=120'
     environment:
       POSTGRES_USER: e_wallet_pg
       POSTGRES_PASSWORD: password
