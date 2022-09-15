@@ -206,12 +206,10 @@ The response is a serialized version of [UserDataDto](model/src/main/java/com/zl
 ### Running the application
 - [docker-compose.yaml](docker-compose.yaml) contains 3 Docker containers named:
    - **postgres** : creates the Postgres database instance this application will use.
-   - **e-wallet-app** : creates a Docker instance of the e-wallet application running oh http port **9094**
-   - **e-wallet-app-2** : creates a second Docker instance of the e-wallet application running oh http port **9095**
-  > **Note** the 2 e-wallet-app instances can be run in parallel to a local workspace instance since that one would be started on port 9093
+   - **e-wallet-app** : creates Docker instances of the e-wallet application running oh http port range **9094-9103**. Instances can be created using the Docker scale option and all instances will run in parallel.
   
-  > **⚠ Warning!** if you are using an external DB the 2 e-wallet-app instances can only be run if you modify [docker-compose.yaml](docker-compose.yaml) by:  
-  >  - replacing the existing DB URL with your new one
+  > **⚠ Warning!** if you are using an external DB the e-wallet-app instances can only be run if you modify [docker-compose.yaml](docker-compose.yaml) by:  
+  >  - replacing the existing DB URL (property **SERVICE_DATASOURCE_POSTGRES_JDBC_URL**) with your new one
   >  - removing the **depends_on:** segment.
 
 Before running the application for the first time the **postgres** container found in [docker-compose.yaml](docker-compose.yaml) 
@@ -233,4 +231,4 @@ To do that however it requires knowledge of a few things.
 
  - [logback.xml](server/src/main/resources/logback.xml) contains the Logback logging configuration
 
-[EWalletServerApplication.java](server/src/main/java/com/zlatkosh/ewallet/EWalletServerApplication.java) is the main class and no additional configuration is needed to run the application from within an IDE like IntelliJ IDEA.
+[EWalletServerApplication.java](server/src/main/java/com/zlatkosh/ewallet/EWalletServerApplication.java) is the main class and no additional configuration is needed to start the application from within an IDE like IntelliJ IDEA.
